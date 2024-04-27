@@ -1,15 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Card from "../components/Card.astro";
 import Home from "./home/index.astro";
-import Container from "@/components/Container.astro";
-import { FadeIn } from "@/components/FadeIn";
-
-import { type CaseStudy, type MDXEntry, loadCaseStudies } from "@/lib/mdx";
-
-const caseStudies = (await loadCaseStudies()).slice(0, 3);
 ---
 
 <Layout title="DoubleWord Labs">
-    <Home />
+  <Home />
 </Layout>

@@ -1,0 +1,100 @@
+---
+import { pluck } from "ramda";
+import { kebabCase } from "change-case";
+import type { Article } from "@/lib/mdx";
+
+import { Border } from "@/components/Border";
+import { Button } from "@/components/Button";
+import { FadeIn } from "@/components/FadeIn";
+import { PageIntro } from "@/components/PageIntro";
+import { formatDate } from "@/lib/formatDate";
+import BlogArticleWrapper from "./wrapper";
+import { MDXComponents } from "@/components/MDXComponents";
+import { PageLinks } from "@/components/PageLinks";
+
+import Layout from "@/layouts/Layout.astro";
+import Container from "@/components/Container.astro";
+import ContactSection from "@/components/ContactSection.astro";
+
+export function getArticleId(article: Omit<Article, "href">) {
+  return `${article.date}-${kebabCase(article.title)}`;
+}
+
+export async function getArticles(): Article[] {
+  const articles = await Astro.glob("@/pages/blog/**/*.mdx");
+
+  return articles.map((data) => {
+    const slug = getArticleId(data.article);
+    const href = `/blog/${slug}/`;
+
+    return {
+      ...data.article,
+      slug,
+      href,
+    };
+  });
+}
+
+export async function getStaticPaths() {
+  const articles = await getArticles();
+
+  return articles.map((article) => ({
+    params: {
+      slug: article.slug,
+    },
+    props: {
+      article,
+    },
+  }));
+}
+
+const { article } = Astro.props;
+
+let allArticles = await getArticles();
+
+let moreArticles = allArticles
+  .filter(({ slug }) => slug !== article.slug)
+  .slice(0, 2);
+---
+
+<Layout>
+  <Container as="article" class="mt-24 sm:mt-32 lg:mt-40">
+    <FadeIn client:load>
+      <header class="mx-auto flex max-w-5xl flex-col text-center">
+        <h1
+          class="mt-6 font-display text-5xl font-medium tracking-tight text-neutral-950 [text-wrap:balance] sm:text-6xl"
+        >
+          {article.title}
+        </h1>
+        <time
+          dateTime={article.date}
+          class="order-first text-sm text-neutral-950"
+        >
+          {formatDate(article.date)}
+        </time>
+        <p class="mt-6 text-sm font-semibold text-neutral-950">
+          by {article.author.name}, {article.author.role}
+        </p>
+      </header>
+    </FadeIn>
+
+    <FadeIn>
+      <!-- <MDXComponents.wrapper className="mt-24 sm:mt-32 lg:mt-40">
+          {children}
+        </MDXComponents.wrapper> -->
+    </FadeIn>
+  </Container>
+
+  {
+    moreArticles.length > 0 && (
+      <PageLinks
+        className="mt-24 sm:mt-32 lg:mt-40"
+        title="More articles"
+        pages={moreArticles}
+        client:load
+      />
+    )
+  }
+</Layout>
+
+<ContactSection />

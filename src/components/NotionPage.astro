@@ -1,0 +1,22 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+import { ExtendedRecordMap } from "notion-types";
+import { getPageTitle } from "notion-utils";
+import { NotionRenderer } from "react-notion-x";
+
+interface Props {
+  recordMap: ExtendedRecordMap;
+  rootPageId?: string;
+}
+
+const { recordMap, rootPageId } = Astro.props;
+---
+
+<NotionRenderer
+  recordMap={recordMap}
+  fullPage
+  darkMode={false}
+  rootPageId={rootPageId}
+  client:load
+/>

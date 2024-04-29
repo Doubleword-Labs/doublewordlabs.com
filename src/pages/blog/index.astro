@@ -1,5 +1,5 @@
 ---
-import { pluck } from "ramda";
+import { allPass, prop, pipe, propEq, isNotNil } from "ramda";
 import { Image } from "astro:assets";
 
 import Layout from "@/layouts/Layout.astro";
@@ -11,12 +11,26 @@ import { Border } from "@/components/Border";
 import { Button } from "@/components/Button";
 import { FadeIn } from "@/components/FadeIn";
 import { PageIntro } from "@/components/PageIntro";
+import NotionPage from "@/components/NotionPage.astro";
+
 import { formatDate } from "@/lib/formatDate";
 import { loadEntries } from "@/lib/mdx";
 
-const articles = await getArticles();
+import { getBlogPosts } from "@/lib/notion";
 
-console.log(articles[0]);
+const articles = (await getBlogPosts())
+  .filter(
+    pipe(
+      prop("pageInfo"),
+      allPass([
+        pipe(prop("datePublished"), isNotNil),
+        propEq("public", "visibility"),
+      ]),
+    ),
+  )
+  .sort((a) => a.pageInfo.datePublished);
+
+console.log(articles.map((a) => a.pageInfo));
 ---
 
 <Layout title="Blog">
@@ -28,9 +42,9 @@ console.log(articles[0]);
   </PageIntro>
 
   <Container class="mt-24 sm:mt-32 lg:mt-40">
-    <div class="space-y-24 lg:space-y-32">
-      {
-        articles.map((article) => (
+    {
+      articles.map((article) => (
+        <Container class="my-24 lg:my-32">
           <FadeIn key={article.href} client:load>
             <article>
               <Border className="pt-16">
@@ -46,19 +60,21 @@ console.log(articles[0]);
                           {formatDate(article.date)}
                         </time>
                       </dd>
-                      <dt class="sr-only">Author</dt>
+                      {/* <dt class="sr-only">Author</dt> */}
                       <dd class="mt-6 flex gap-x-4">
                         <div class="flex-none overflow-hidden rounded-xl bg-neutral-100">
                           <Image
                             alt=""
-                            {...article.author.image}
-                            class="h-12 w-12 object-cover grayscale"
+                            src={article.pageInfo.image}
+                            inferSize
+                            width={96}
+                            class="h-12 w-12 object-cover"
                           />
                         </div>
-                        <div class="text-sm text-neutral-950">
+                        {/* <div class="text-sm text-neutral-950">
                           <div class="font-semibold">{article.author.name}</div>
                           <div>{article.author.role}</div>
-                        </div>
+                        </div> */}
                       </dd>
                     </dl>
                     <p class="mt-6 max-w-2xl text-base text-neutral-600">
@@ -76,9 +92,9 @@ console.log(articles[0]);
               </Border>
             </article>
           </FadeIn>
-        ))
-      }
-    </div>
+        </Container>
+      ))
+    }
   </Container>
 
   <ContactSection />

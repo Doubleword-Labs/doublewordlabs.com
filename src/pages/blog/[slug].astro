@@ -11,32 +11,16 @@ import { formatDate } from "@/lib/formatDate";
 import BlogArticleWrapper from "./wrapper";
 import { MDXComponents } from "@/components/MDXComponents";
 import { PageLinks } from "@/components/PageLinks";
+import NotionPage from "@/components/NotionPage.astro";
 
 import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/Container.astro";
 import ContactSection from "@/components/ContactSection.astro";
 
-export function getArticleId(article: Omit<Article, "href">) {
-  return `${article.date}-${kebabCase(article.title)}`;
-}
-
-export async function getArticles(): Article[] {
-  const articles = await Astro.glob("@/pages/blog/**/*.mdx");
-
-  return articles.map((data) => {
-    const slug = getArticleId(data.article);
-    const href = `/blog/${slug}/`;
-
-    return {
-      ...data.article,
-      slug,
-      href,
-    };
-  });
-}
+import { getBlogPosts } from "@/lib/notion";
 
 export async function getStaticPaths() {
-  const articles = await getArticles();
+  const articles = await getBlogPosts();
 
   return articles.map((article) => ({
     params: {
@@ -49,8 +33,9 @@ export async function getStaticPaths() {
 }
 
 const { article } = Astro.props;
+const { data: recordMap } = article;
 
-let allArticles = await getArticles();
+let allArticles = await getBlogPosts();
 
 let moreArticles = allArticles
   .filter(({ slug }) => slug !== article.slug)
@@ -78,10 +63,8 @@ let moreArticles = allArticles
       </header>
     </FadeIn>
 
-    <FadeIn>
-      <!-- <MDXComponents.wrapper className="mt-24 sm:mt-32 lg:mt-40">
-          {children}
-        </MDXComponents.wrapper> -->
+    <FadeIn client:load>
+      <NotionPage recordMap={recordMap} />
     </FadeIn>
   </Container>
 

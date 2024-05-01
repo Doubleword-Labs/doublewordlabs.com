@@ -8,8 +8,6 @@ import { Button } from "@/components/Button";
 import { FadeIn } from "@/components/FadeIn";
 import { PageIntro } from "@/components/PageIntro";
 import { formatDate } from "@/lib/formatDate";
-import BlogArticleWrapper from "./wrapper";
-import { MDXComponents } from "@/components/MDXComponents";
 import { PageLinks } from "@/components/PageLinks";
 import NotionPage from "@/components/NotionPage.astro";
 
@@ -58,7 +56,7 @@ let moreArticles = allArticles
           {formatDate(article.date)}
         </time>
         <p class="mt-6 text-sm font-semibold text-neutral-950">
-          by {article.author.name}, {article.author.role}
+          by {article.author.name}
         </p>
       </header>
     </FadeIn>

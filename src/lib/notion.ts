@@ -1,7 +1,6 @@
 import { NotionAPI } from "notion-client";
 import {
   getCanonicalPageId,
-  getPageTitle,
   getPageProperty,
   getBlockTitle,
   getBlockIcon,
@@ -98,7 +97,11 @@ export async function getPosts(rootPageId: string) {
       getCompatibleImageUrl(imageBlockUrl, undefined),
     ];
 
-    const author = getPageProperty<string>("Author", block, recordMap);
+    let author = getPageProperty<string>("Author", block, recordMap);
+
+    if (isEmpty(author)) {
+      author = import.meta.env.PUBLIC_DEFAULT_AUTHOR_NAME;
+    }
 
     const socialDescription = getPageProperty<string>(
       "Description",
@@ -160,7 +163,9 @@ export async function getPosts(rootPageId: string) {
       href: `/blog/${slug}`,
       title: pageInfo.title,
       date: datePublished,
-      author: {},
+      author: {
+        name: author,
+      },
       description: socialDescription,
       data: recordMap,
       pageInfo,

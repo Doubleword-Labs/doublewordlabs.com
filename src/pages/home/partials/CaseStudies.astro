@@ -4,65 +4,98 @@ import { SectionIntro } from "@/components/SectionIntro";
 import { FadeInStagger, FadeIn } from "@/components/FadeIn";
 import { Image } from "astro:assets";
 import { pluck } from "ramda";
+import clsx from "clsx";
 
-const caseStudies = pluck(
-    "caseStudy",
-    await Astro.glob("@/pages/work/**/*.mdx"),
-);
+import imageFe26 from "@/images/projects/fe-26-header.png";
+import imageParasiteAttack1984 from "@/images/projects/parasite-attack-header.png";
+import imageTheDarkBelow from "@/images/projects/dark-below-header.png";
+
+const caseStudies = [
+  {
+    title: "Fe-26: Furnace of Fury",
+    description:
+      "Join Felix, a spirited iron cube, in a dynamic endless runner set in a perilous steel factory. Dodge daunting industrial hazards to help escape to freedom. Thrilling challenges await in each run, testing your reflexes and resolve in the fiery trials of industrial oppression.",
+    image: imageFe26,
+    imageClass: "bg-black object-cover",
+    href: "https://doubleword-labs.itch.io/fe-26",
+    date: "2024-04",
+    type: "Endless runner",
+  },
+  {
+    title: "Parasite Attack 1984",
+    description:
+      "Step back into the '80s and take control of a terminal operator. Using strategic commands, defend Earth from interstellar parasites amidst neon skylines and CRT screens. Harness cutting-edge technology to increase your score multiplier by hitting targets and avoid misses that reset it. Engage in a retro-style battle with a twist of real-time strategy and arcade action.",
+    image: imageParasiteAttack1984,
+    imageClass: "bg-black w-full",
+    href: "https://doubleword-labs.itch.io/parasite-attack-1984",
+    date: "2024-05",
+    type: "Retro arcade",
+  },
+  {
+    title: "The Dark Below",
+    description:
+      "Navigate mysterious depths in a dark, ancient dungeon filled with challenges and magic. Use your wits and magical abilities to uncover hidden keys and paths needed to escape the sinister environment. Each corner of the dungeon promises new puzzles and relentless enemies, testing your strategic thinking and reflexes.",
+    image: imageTheDarkBelow,
+    imageClass: "bg-black w-full",
+    href: "https://doubleword-labs.itch.io/the-dark-below",
+    date: "2024-06",
+    type: "Action RPG",
+  },
+];
 ---
 
 <SectionIntro
-    title="Harnessing technology for a brighter future"
-    className="mt-24 sm:mt-32 lg:mt-40"
-    client:load
+  title="Our projects"
+  className="mt-24 sm:mt-32 lg:mt-40"
+  client:load
 >
-    <p>
-        We believe technology is the answer to the world’s greatest challenges.
-        It’s also the cause, so we find ourselves in bit of a catch 22
-        situation.
-    </p>
+  <p class="hidden">
+    We believe technology is the answer to the world’s greatest challenges. It’s
+    also the cause, so we find ourselves in bit of a catch 22 situation.
+  </p>
 </SectionIntro>
 
 <Container className="mt-16">
-    <FadeInStagger
-        className="grid grid-cols-1 gap-8 lg:grid-cols-3"
-        client:load
-    >
-        {
-            caseStudies.map((caseStudy) => (
-                <FadeIn key={caseStudy.href} className="flex" client:load>
-                    <article class="relative flex w-full flex-col rounded-3xl p-6 ring-1 ring-neutral-950/5 transition hover:bg-neutral-50 sm:p-8">
-                        <h3>
-                            <a href={caseStudy.href}>
-                                <span class="absolute inset-0 rounded-3xl" />
-                                <Image
-                                    src={caseStudy.image.src}
-                                    alt={caseStudy.client}
-                                    class="h-16 w-16"
-                                />
-                            </a>
-                        </h3>
-                        <p class="mt-6 flex gap-x-2 text-sm text-neutral-950">
-                            <time
-                                dateTime={caseStudy.date.split("-")[0]}
-                                class="font-semibold"
-                            >
-                                {caseStudy.date.split("-")[0]}
-                            </time>
-                            <span class="text-neutral-300" aria-hidden="true">
-                                /
-                            </span>
-                            <span>Case study</span>
-                        </p>
-                        <p class="mt-6 font-display text-2xl font-semibold text-neutral-950">
-                            {caseStudy.title}
-                        </p>
-                        <p class="mt-4 text-base text-neutral-600">
-                            {caseStudy.description}
-                        </p>
-                    </article>
-                </FadeIn>
-            ))
-        }
-    </FadeInStagger>
+  <FadeInStagger className="grid grid-cols-1 gap-8 lg:grid-cols-3" client:load>
+    {
+      caseStudies.map((caseStudy) => (
+        <FadeIn key={caseStudy.href} className="flex" client:load>
+          <article class="relative flex w-full flex-col rounded-3xl p-6 ring-1 ring-neutral-950/5 transition hover:bg-neutral-50 sm:p-8">
+            <h3>
+              <a href={caseStudy.href} target="_new" rel="noopener noreferer">
+                <span class="absolute inset-0 rounded-3xl" />
+                <Image
+                  src={caseStudy.image}
+                  alt={caseStudy.title}
+                  class={clsx(
+                    caseStudy.imageClass,
+                    "h-32 rounded-lg object-contain",
+                  )}
+                  height={256}
+                />
+              </a>
+            </h3>
+            <p class="mt-6 flex gap-x-2 text-sm text-neutral-950">
+              <time
+                datetime={caseStudy.date.split("-")[0]}
+                class="font-semibold"
+              >
+                {caseStudy.date.split("-")[0]}
+              </time>
+              <span class="text-neutral-300" aria-hidden="true">
+                /
+              </span>
+              <span>{caseStudy.type}</span>
+            </p>
+            <p class="mt-6 font-display text-2xl font-semibold text-neutral-950">
+              {caseStudy.title}
+            </p>
+            <p class="mt-4 text-base text-neutral-600">
+              {caseStudy.description}
+            </p>
+          </article>
+        </FadeIn>
+      ))
+    }
+  </FadeInStagger>
 </Container>

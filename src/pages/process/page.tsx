@@ -1,28 +1,26 @@
-import { type Metadata } from 'next'
-
-import { Blockquote } from '@/components/Blockquote'
-import { ContactSection } from '@/components/ContactSection'
-import { Container } from '@/components/Container'
-import { FadeIn } from '@/components/FadeIn'
-import { GridList, GridListItem } from '@/components/GridList'
-import { GridPattern } from '@/components/GridPattern'
-import { List, ListItem } from '@/components/List'
-import { PageIntro } from '@/components/PageIntro'
-import { SectionIntro } from '@/components/SectionIntro'
-import { StylizedImage } from '@/components/StylizedImage'
-import { TagList, TagListItem } from '@/components/TagList'
-import imageLaptop from '@/images/laptop.jpg'
-import imageMeeting from '@/images/meeting.jpg'
-import imageWhiteboard from '@/images/whiteboard.jpg'
+import { Blockquote } from "@/components/Blockquote";
+import { ContactSection } from "@/components/ContactSection";
+import { Container } from "@/components/Container";
+import { FadeIn } from "@/components/FadeIn";
+import { GridList, GridListItem } from "@/components/GridList";
+import { GridPattern } from "@/components/GridPattern";
+import { List, ListItem } from "@/components/List";
+import { PageIntro } from "@/components/PageIntro";
+import { SectionIntro } from "@/components/SectionIntro";
+import { StylizedImage } from "@/components/StylizedImage";
+import { TagList, TagListItem } from "@/components/TagList";
+import imageLaptop from "@/images/laptop.jpg";
+import imageMeeting from "@/images/meeting.jpg";
+import imageWhiteboard from "@/images/whiteboard.jpg";
 
 function Section({
   title,
   image,
   children,
 }: {
-  title: string
-  image: React.ComponentPropsWithoutRef<typeof StylizedImage>
-  children: React.ReactNode
+  title: string;
+  image: React.ComponentPropsWithoutRef<typeof StylizedImage>;
+  children: React.ReactNode;
 }) {
   return (
     <Container className="group/section [counter-increment:section]">
@@ -50,15 +48,15 @@ function Section({
         </div>
       </div>
     </Container>
-  )
+  );
 }
 
 function Discover() {
   return (
-    <Section title="Discover" image={{ src: imageWhiteboard }}>
+    <Section title="Discover" image={{ src: imageWhiteboard.src }}>
       <div className="space-y-6 text-base text-neutral-600">
         <p>
-          We work closely with our clients to understand their{' '}
+          We work closely with our clients to understand their{" "}
           <strong className="font-semibold text-neutral-950">needs</strong> and
           goals, embedding ourselves in their every day operations to understand
           what makes their business tick.
@@ -67,13 +65,13 @@ function Discover() {
           Our team of private investigators shadow the company director’s for
           several weeks while our account managers focus on going through their
           trash. Our senior security experts then perform social engineering
-          hacks to gain access to their{' '}
-          <strong className="font-semibold text-neutral-950">business</strong>{' '}
+          hacks to gain access to their{" "}
+          <strong className="font-semibold text-neutral-950">business</strong>{" "}
           accounts — handing that information over to our forensic accounting
           team.
         </p>
         <p>
-          Once the full audit is complete, we report back with a comprehensive{' '}
+          Once the full audit is complete, we report back with a comprehensive{" "}
           <strong className="font-semibold text-neutral-950">plan</strong> and,
           more importantly, a budget.
         </p>
@@ -91,12 +89,12 @@ function Discover() {
         <TagListItem>Forensic audit</TagListItem>
       </TagList>
     </Section>
-  )
+  );
 }
 
 function Build() {
   return (
-    <Section title="Build" image={{ src: imageLaptop, shape: 1 }}>
+    <Section title="Build" image={{ src: imageLaptop.src, shape: 1 }}>
       <div className="space-y-6 text-base text-neutral-600">
         <p>
           Based off of the discovery phase, we develop a comprehensive roadmap
@@ -120,45 +118,45 @@ function Build() {
       </div>
 
       <Blockquote
-        author={{ name: 'Debra Fiscal', role: 'CEO of Unseal' }}
+        author={{ name: "Debra Fiscal", role: "CEO of Unseal" }}
         className="mt-12"
       >
         Studio were so regular with their progress updates we almost began to
         think they were automated!
       </Blockquote>
     </Section>
-  )
+  );
 }
 
 function Deliver() {
   return (
-    <Section title="Deliver" image={{ src: imageMeeting, shape: 2 }}>
+    <Section title="Deliver" image={{ src: imageMeeting.src, shape: 2 }}>
       <div className="space-y-6 text-base text-neutral-600">
         <p>
           About halfway through the Build phase, we push each project out by 6
-          weeks due to a change in{' '}
+          weeks due to a change in{" "}
           <strong className="font-semibold text-neutral-950">
             requirements
           </strong>
           . This allows us to increase the budget a final time before launch.
         </p>
         <p>
-          Despite largely using pre-built components, most of the{' '}
-          <strong className="font-semibold text-neutral-950">progress</strong>{' '}
+          Despite largely using pre-built components, most of the{" "}
+          <strong className="font-semibold text-neutral-950">progress</strong>{" "}
           on each project takes place in the final 24 hours. The development
           time allocated to each client is actually spent making augmented
           reality demos that go viral on social media.
         </p>
         <p>
-          We ensure that the main pages of the site are{' '}
+          We ensure that the main pages of the site are{" "}
           <strong className="font-semibold text-neutral-950">
             fully functional
-          </strong>{' '}
+          </strong>{" "}
           at launch — the auxiliary pages will, of course, be lorem ipusm shells
-          which get updated as part of our exorbitant{' '}
+          which get updated as part of our exorbitant{" "}
           <strong className="font-semibold text-neutral-950">
             maintenance
-          </strong>{' '}
+          </strong>{" "}
           retainer.
         </p>
       </div>
@@ -181,7 +179,7 @@ function Deliver() {
         </ListItem>
       </List>
     </Section>
-  )
+  );
 }
 
 function Values() {
@@ -236,14 +234,14 @@ function Values() {
         </GridList>
       </Container>
     </div>
-  )
+  );
 }
 
-export const metadata: Metadata = {
-  title: 'Our Process',
+export const metadata = {
+  title: "Our Process",
   description:
-    'We believe in efficiency and maximizing our resources to provide the best value to our clients.',
-}
+    "We believe in efficiency and maximizing our resources to provide the best value to our clients.",
+};
 
 export default function Process() {
   return (
@@ -266,5 +264,5 @@ export default function Process() {
 
       <ContactSection />
     </>
-  )
+  );
 }

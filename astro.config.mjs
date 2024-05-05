@@ -14,6 +14,6 @@ export default defineConfig({
     mdx(),
   ],
   image: {
-    domains: ["www.notion.so", "images.unsplash.com"],
+    domains: ["www.notion.so", "images.unsplash.com", "i.imgur.com"],
   },
 });

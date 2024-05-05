@@ -22,15 +22,22 @@ const imageBlocks = Object.values(recordMap.block).filter(
 
 const imageMap = {};
 for (const block of imageBlocks) {
-  const imageSrc = unnest(block.value.properties.source)[0];
+  let imageSrc = unnest(block.value.properties.source)[0];
 
-  const query = {
-    table: "block",
-    id: block.value.id,
-  };
+  if (
+    imageSrc.indexOf("notion-static.com") >= 0 ||
+    imageSrc.indexOf("prod-files-secure") >= 0
+  ) {
+    const query = {
+      table: "block",
+      id: block.value.id,
+    };
+
+    imageSrc = `https://www.notion.so/image/${encodeURIComponent(imageSrc)}?${qs.stringify(query)}`;
+  }
 
   imageMap[block.value.id] = await getImage({
-    src: `https://www.notion.so/image/${encodeURIComponent(imageSrc)}?${qs.stringify(query)}`,
+    src: imageSrc,
     inferSize: true,
   });
 }

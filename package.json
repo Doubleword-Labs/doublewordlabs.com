@@ -26,6 +26,7 @@
     "notion-client": "^6.16.0",
     "notion-utils": "^6.16.0",
     "prismjs": "^1.29.0",
+    "qs": "^6.12.1",
     "ramda": "^0.29.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -37,6 +38,7 @@
   "devDependencies": {
     "@types/bun": "^1.1.0",
     "@types/prismjs": "^1.26.3",
+    "@types/qs": "^6.9.15",
     "@types/ramda": "^0.29.12",
     "@types/react-syntax-highlighter": "^15.5.11",
     "prettier": "^3.2.5",

@@ -2,8 +2,11 @@
 import Layout from "@/layouts/Layout.astro";
 
 import type { ExtendedRecordMap } from "notion-types";
-import { getPageTitle } from "notion-utils";
+import { getPageTitle, getBlockTitle } from "notion-utils";
 import NotionRenderer from "@/components/react/NotionRenderer";
+import { unnest } from "ramda";
+import { getImage } from "astro:assets";
+import qs from "qs";
 
 interface Props {
   recordMap: ExtendedRecordMap;
@@ -11,10 +14,31 @@ interface Props {
 }
 
 const { recordMap, rootPageId } = Astro.props;
+
+// get all image blocks
+const imageBlocks = Object.values(recordMap.block).filter(
+  (block) => block.value.type === "image",
+);
+
+const imageMap = {};
+for (const block of imageBlocks) {
+  const imageSrc = unnest(block.value.properties.source)[0];
+
+  const query = {
+    table: "block",
+    id: block.value.id,
+  };
+
+  imageMap[block.value.id] = await getImage({
+    src: `https://www.notion.so/image/${encodeURIComponent(imageSrc)}?${qs.stringify(query)}`,
+    inferSize: true,
+  });
+}
 ---
 
 <NotionRenderer
   recordMap={recordMap}
+  imageMap={imageMap}
   fullPage={false}
   darkMode={false}
   rootPageId={rootPageId}

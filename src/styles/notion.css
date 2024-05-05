@@ -1,0 +1,5 @@
+@import "react-notion-x/src/styles.css";
+
+.notion {
+  --notion-font: theme(fontFamily.sans);
+}

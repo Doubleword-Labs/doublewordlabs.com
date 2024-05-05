@@ -13,6 +13,7 @@
   --shiki-token-function: theme(colors.neutral.300);
   --shiki-token-string-expression: theme(colors.neutral.300);
   --shiki-token-punctuation: theme(colors.neutral.400);
+  --notion-font: theme(fontFamily.sans);
 
   :where(.typography > *) {
     margin-top: theme(spacing.6);
@@ -157,7 +158,7 @@
 
     &::before,
     &::after {
-      content: '`';
+      content: "`";
     }
   }
 

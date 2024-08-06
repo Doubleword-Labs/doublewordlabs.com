@@ -5,7 +5,6 @@ import { Image } from "astro:assets";
 import Layout from "@/layouts/Layout.astro";
 import ContactSection from "@/components/ContactSection.astro";
 import Container from "@/components/Container.astro";
-import { getArticles } from "./[slug].astro";
 
 import { Border } from "@/components/Border";
 import { Button } from "@/components/Button";
@@ -14,21 +13,9 @@ import { PageIntro } from "@/components/PageIntro";
 import NotionPage from "@/components/NotionPage.astro";
 
 import { formatDate } from "@/lib/formatDate";
-import { loadEntries } from "@/lib/mdx";
+import { getPublicBlogPosts } from "@/lib/notion";
 
-import { getBlogPosts } from "@/lib/notion";
-
-const articles = (await getBlogPosts())
-  .filter(
-    pipe(
-      prop("pageInfo"),
-      allPass([
-        pipe(prop("datePublished"), isNotNil),
-        propEq("public", "visibility"),
-      ]),
-    ),
-  )
-  .sort((a) => a.pageInfo.datePublished?.getTime() ?? 0);
+const articles = await getPublicBlogPosts();
 
 console.log(articles.map((a) => a.pageInfo));
 ---

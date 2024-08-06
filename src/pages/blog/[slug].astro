@@ -15,10 +15,10 @@ import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/Container.astro";
 import ContactSection from "@/components/ContactSection.astro";
 
-import { getBlogPosts } from "@/lib/notion";
+import { getPublicBlogPosts } from "@/lib/notion";
 
 export async function getStaticPaths() {
-  const articles = await getBlogPosts();
+  const articles = await getPublicBlogPosts();
 
   return articles.map((article) => ({
     params: {
@@ -33,7 +33,7 @@ export async function getStaticPaths() {
 const { article } = Astro.props;
 const { data: recordMap } = article;
 
-let allArticles = await getBlogPosts();
+let allArticles = await getPublicBlogPosts();
 
 let moreArticles = allArticles
   .filter(({ slug }) => slug !== article.slug)

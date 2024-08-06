@@ -8,8 +8,7 @@ import {
 } from "notion-utils";
 import type { PageBlock, Block } from "notion-types";
 import { defaultMapImageUrl } from "react-notion-x";
-import { pipe, prop, isEmpty } from "ramda";
-import { allPass } from "ramda";
+import { pipe, prop, isEmpty, isNotNil, allPass, propEq } from "ramda";
 
 // import { defaultPageCover, defaultPageIcon } from './config'
 
@@ -175,4 +174,18 @@ export async function getPosts(rootPageId: string) {
 
 export function getBlogPosts() {
   return getPosts(BLOG_POSTS_ROOT_PAGE_ID);
+}
+
+export async function getPublicBlogPosts() {
+  return (await getBlogPosts())
+    .filter(
+      pipe(
+        prop("pageInfo"),
+        allPass([
+          pipe(prop("datePublished"), isNotNil),
+          propEq("public", "visibility"),
+        ]),
+      ),
+    )
+    .sort((a) => a.pageInfo.datePublished?.getTime() ?? 0);
 }

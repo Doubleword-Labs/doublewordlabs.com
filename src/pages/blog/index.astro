@@ -28,7 +28,7 @@ const articles = (await getBlogPosts())
       ]),
     ),
   )
-  .sort((a) => a.pageInfo.datePublished);
+  .sort((a) => a.pageInfo.datePublished?.getTime() ?? 0);
 
 console.log(articles.map((a) => a.pageInfo));
 ---
@@ -56,20 +56,24 @@ console.log(articles.map((a) => a.pageInfo));
                     <dl class="lg:absolute lg:left-0 lg:top-0 lg:w-1/3 lg:px-4">
                       <dt class="sr-only">Published</dt>
                       <dd class="absolute left-0 top-0 text-sm text-neutral-950 lg:static">
-                        <time dateTime={article.date}>
-                          {formatDate(article.date)}
-                        </time>
+                        {article.date && (
+                          <time dateTime={article.date}>
+                            {formatDate(article.date)}
+                          </time>
+                        )}
                       </dd>
                       {/* <dt class="sr-only">Author</dt> */}
                       <dd class="mt-6 flex gap-x-4">
                         <div class="flex-none overflow-hidden rounded-xl bg-neutral-100">
-                          <Image
-                            alt=""
-                            src={article.pageInfo.image}
-                            inferSize
-                            width={96}
-                            class="h-12 w-12 object-cover"
-                          />
+                          {article.pageInfo.image && (
+                            <Image
+                              alt=""
+                              src={article.pageInfo.image}
+                              inferSize
+                              width={96}
+                              class="h-12 w-12 object-cover"
+                            />
+                          )}
                         </div>
                         {/* <div class="text-sm text-neutral-950">
                           <div class="font-semibold">{article.author.name}</div>

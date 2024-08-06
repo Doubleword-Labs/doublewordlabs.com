@@ -44,7 +44,7 @@ function getCompatibleImageUrl(
 
 const notion = new NotionAPI();
 
-const BLOG_POSTS_ROOT_PAGE_ID = "93cf31e912484152a3b8d6c6c75b0874";
+const BLOG_POSTS_ROOT_PAGE_ID = "c9ebbf93c0b74de785068243fa8813ca";
 
 function isPage(block: Block): block is PageBlock {
   return block.type === "page";

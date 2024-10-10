@@ -1,16 +1,10 @@
 ---
 import { FadeIn } from "@/components/FadeIn";
-import Home from "./index.tsx";
 
 import Container from "@/components/Container.astro";
-import Testimonial from "@/components/Testimonial.astro";
 import ContactSection from "@/components/ContactSection.astro";
 
-import Clients from "./partials/Clients.astro";
 import CaseStudies from "./partials/CaseStudies.astro";
-import Services from "./partials/Services.astro";
-
-import logoPhobiaDark from "@/images/clients/phobia/logo-dark.svg";
 ---
 
 <Container>
@@ -29,18 +23,3 @@ import logoPhobiaDark from "@/images/clients/phobia/logo-dark.svg";
 </Container>
 
 <CaseStudies />
-
-<Clients />
-
-<Testimonial
-  class="mt-24 sm:mt-32 lg:mt-40"
-  client={{ name: "Phobia", logo: logoPhobiaDark.src }}
->
-  The team at Studio went above and beyond with our onboarding, even finding a
-  way to access the user’s microphone without triggering one of those annoying
-  permission dialogs.
-</Testimonial>
-
-<Services />
-
-<ContactSection />

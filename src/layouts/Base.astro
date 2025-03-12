@@ -1,0 +1,33 @@
+---
+import "@/styles/tailwind.css";
+import Posthog from "@/components/Posthog.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  bodyClass?: string;
+}
+
+const {
+  title,
+  description,
+  bodyClass = "flex min-h-full flex-col text-white",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="h-full bg-neutral-950 text-base antialiased">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <slot name="head" />
+  </head>
+  <body class={bodyClass}>
+    <slot />
+    <Posthog />
+  </body>
+</html>

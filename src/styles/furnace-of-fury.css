@@ -24,3 +24,7 @@ h4,
 h5 {
   font-family: "Permanent Marker", sans-serif;
 }
+
+input[type="checkbox"]:checked {
+  background-color: black;
+}

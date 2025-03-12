@@ -1,0 +1,47 @@
+---
+import "@/styles/tailwind.css";
+import "@/styles/furnace-of-fury.css";
+
+import { Image } from "astro:assets";
+import headerImage from "@/images/games/fe26-furnace-of-fury/Fe-26_subscribe_header.png";
+
+interface Props {
+  title: string;
+}
+
+const { title = "Fe-26: Furnace of Fury - DoubleWord Labs" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="h-full bg-neutral-950 text-base antialiased">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Join Felix, a spirited little iron cube, on his relentless quest for freedom in this endless runner game. Navigate through razor-sharp saws, crushing presses, and molten metal rivers as you defy industrial oppression. Test your reflexes and endurance in randomly generated levels, and help Felix break free from the confines of the production line. Endless fun, frustration, and an annoyingly cute protagonist await!"
+    />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.yellow.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="flex min-h-full flex-col text-white">
+    <header
+      id="header"
+      class="min-w-full bg-auto lg:bg-contain bg-center bg-no-repeat"
+    >
+      <Image src={headerImage} alt="Fe-26: Furnace of Fury" class="mx-auto" />
+    </header>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,26 @@
+@font-face {
+  font-family: "PA84-Bold";
+  src: url("/fonts/PA84-Bold.otf"), sans-serif;
+}
+
+@font-face {
+  font-family: "PA84-Light";
+  src: url("/fonts/PA84-Light.otf"), sans-serif;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  background-color: #131111;
+}
+
+h1 {
+  font-size: 1.6rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Permanent Marker", sans-serif;
+}

@@ -1,0 +1,64 @@
+---
+import Layout from "@/layouts/ParasiteAttack.astro";
+import { Image } from "astro:assets";
+
+import parasiteGif from "@/images/games/parasite-attack-1984/PA84_subscribe_anim.gif";
+import buttonImage from "@/images/games/parasite-attack-1984/Parasite_Attack_1984_subscribe_button.png";
+---
+
+<Layout title="Parasite Attack 1984 - Subscribe - DoubleWord Labs">
+  <main class="mt-8 mx-auto p-4 w-[50%] border-[#50459a] border-8">
+    <h1 class="uppercase text-center">
+      Ready to save the day, the city, the world?
+    </h1>
+
+    <section class="flex">
+      <Image src={parasiteGif} alt="Parasite" />
+      <div class="flex flex-col justify-center">
+        <p>Subscribe to get game and development insights.</p>
+        <strong>+ Special Benefits and Exclusive Content</strong>
+      </div>
+    </section>
+
+    <section>
+      <form
+        method="post"
+        action="https://listmonk.doublewordlabs.com/subscription/form"
+        class="listmonk-form"
+      >
+        <div class="pico">
+          <input type="hidden" name="nonce" />
+
+          <input type="email" name="email" required placeholder="E-mail" />
+          <input type="text" name="name" placeholder="Name (optional)" />
+
+          <input
+            id="09c49"
+            type="hidden"
+            name="l"
+            value="09c498c0-05ed-42e7-9501-83a228fbdb3d"
+          />
+          <p>
+            <input
+              id="13897"
+              type="checkbox"
+              name="l"
+              checked
+              value="13897d36-3394-47b0-8bfe-c583bf4e1f23"
+              class="!bg-[#50459a] !border-[#50459a]"
+            />
+            <label for="13897"
+              >Also subscribe to the DoubleWord Labs Newsletter</label
+            >
+          </p>
+        </div>
+        <input
+          type="submit"
+          value=""
+          class="w-full h-[50px] bg-no-repeat bg-center bg-contain cursor-pointer"
+          style={{ backgroundImage: `url(${buttonImage.src})` }}
+        />
+      </form>
+    </section>
+  </main>
+</Layout>

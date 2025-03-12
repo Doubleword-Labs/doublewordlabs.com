@@ -1,0 +1,65 @@
+---
+import "@/styles/tailwind.css";
+
+import { Image } from "astro:assets";
+import backgroundImage from "@/images/games/parasite-attack-1984/1080x128_citybg.png";
+import headerImage from "@/images/games/parasite-attack-1984/PA84_subscribe_header.png";
+
+interface Props {
+  title: string;
+}
+
+const { title = "DoubleWord Labs - Parasite Attack 1984" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="h-full bg-neutral-950 text-base antialiased">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.violet.min.css"
+    />
+    <style>
+      @font-face {
+        font-family: "PA84-Bold";
+        src: url("/fonts/PA84-Bold.otf"), sans-serif;
+      }
+
+      @font-face {
+        font-family: "PA84-Light";
+        src: url("/fonts/PA84-Light.otf"), sans-serif;
+      }
+
+      body {
+        font-family: "Lato", sans-serif;
+      }
+
+      h1 {
+        font-size: 1.6rem;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5 {
+        font-family: "PA84-Bold";
+      }
+    </style>
+  </head>
+  <body class="flex min-h-full flex-col text-white">
+    <header
+      class="min-w-full bg-contain bg-center bg-no-repeat"
+      style={`background-image: url(${backgroundImage.src});`}
+    >
+      <Image src={headerImage} alt="Parasite Attack 1984" class="mx-auto" />
+    </header>
+    <slot />
+  </body>
+</html>

@@ -1,5 +1,6 @@
 ---
 import "@/styles/tailwind.css";
+import "@/styles/parasite-attack.css";
 
 import { Image } from "astro:assets";
 import backgroundImage from "@/images/games/parasite-attack-1984/1080x128_citybg.png";
@@ -28,37 +29,11 @@ const { title = "DoubleWord Labs - Parasite Attack 1984" } = Astro.props;
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.violet.min.css"
     />
-    <style>
-      @font-face {
-        font-family: "PA84-Bold";
-        src: url("/fonts/PA84-Bold.otf"), sans-serif;
-      }
-
-      @font-face {
-        font-family: "PA84-Light";
-        src: url("/fonts/PA84-Light.otf"), sans-serif;
-      }
-
-      body {
-        font-family: "Lato", sans-serif;
-      }
-
-      h1 {
-        font-size: 1.6rem;
-      }
-
-      h1,
-      h2,
-      h3,
-      h4,
-      h5 {
-        font-family: "PA84-Bold";
-      }
-    </style>
   </head>
   <body class="flex min-h-full flex-col text-white bg-black">
     <header
-      class="min-w-full bg-contain bg-center bg-no-repeat"
+      id="header"
+      class="min-w-full bg-auto lg:bg-contain bg-center bg-no-repeat"
       style={`background-image: url(${backgroundImage.src});`}
     >
       <Image src={headerImage} alt="Parasite Attack 1984" class="mx-auto" />
